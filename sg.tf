@@ -20,6 +20,7 @@ resource "aws_security_group" "alb_public" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+
   tags = {
     Name = "roboshop-${var.ENV}-public-alb-sg"
   }
@@ -27,7 +28,7 @@ resource "aws_security_group" "alb_public" {
 
 # Private load balancer security Group
 resource "aws_security_group" "alb_private" {
-  count       = var.INTERNAL ? 0 : 1  
+  count       = var.INTERNAL ? 1 : 0
   name        = "roboshop-${var.ENV}-private-alb-sg"
   description = "Allows Only Traffic to interanet"
   vpc_id      = data.terraform_remote_state.vpc.outputs.VPC_ID
